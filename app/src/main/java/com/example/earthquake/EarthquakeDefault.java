@@ -1,5 +1,6 @@
 package com.example.earthquake;
 
+import android.content.Loader;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -40,6 +41,8 @@ public class EarthquakeDefault extends AppCompatActivity {
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        Loader loader = getLoaderManager().initLoader(0, null, this);
     }
 
 }
