@@ -42,7 +42,8 @@ public class EarthquakeDefault extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        Loader loader = getLoaderManager().initLoader(0, null, this);
+        String uri = new String("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&endtime=2014-01-02");
+        new ASyncRetrieveEarthqukeDataTask().execute(uri);
     }
 
 }
