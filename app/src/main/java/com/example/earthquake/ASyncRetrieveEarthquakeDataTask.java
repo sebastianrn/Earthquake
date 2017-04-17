@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  * Created by sebas on 15.04.2017.
  */
 
-class ASyncRetrieveEarthqukeDataTask extends AsyncTask <String, Void, JSONObject> {
+class ASyncRetrieveEarthquakeDataTask extends AsyncTask <String, Void, JSONObject> {
 
     @Override
     protected JSONObject doInBackground(String... url){
