@@ -1,6 +1,5 @@
 package com.example.earthquake;
 
-import android.content.Loader;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -43,7 +42,7 @@ public class EarthquakeDefault extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         String uri = new String("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&endtime=2014-01-02");
-        new ASyncRetrieveEarthqukeDataTask().execute(uri);
+        new ASyncRetrieveEarthquakeDataTask().execute(uri);
     }
 
 }
