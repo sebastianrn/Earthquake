@@ -33,6 +33,11 @@ class ASyncRetrieveEarthquakeDataTask extends AsyncTask <String, Void, JSONObjec
     }
 
     @Override
+    protected void onProgressUpdate(Integer... progress) {
+
+    }
+
+    @Override
     protected void onPostExecute(JSONObject result){
         JSONObject test = result;
         textView.setText(result.toString());
