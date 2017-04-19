@@ -35,7 +35,7 @@ class ASyncRetrieveEarthquakeDataTask extends AsyncTask <String, Void, JSONObjec
     @Override
     protected void onPostExecute(JSONObject result){
         JSONObject test = result;
-
+        textView.setText(result.toString());
     }
 
     private JSONObject loadEarthquakeData(String uri) {
@@ -55,10 +55,8 @@ class ASyncRetrieveEarthquakeDataTask extends AsyncTask <String, Void, JSONObjec
             }
 
             result = new JSONObject(builder.toString());
-            JSONObject main = result.getJSONObject("main");
+            //JSONObject main = result.getJSONObject("main");
             //weather = String.valueOf(main.getDouble("temp"));
-
-            textView.setText(result.toString());
 
             urlConnection.disconnect();
         } catch (IOException | JSONException e) {

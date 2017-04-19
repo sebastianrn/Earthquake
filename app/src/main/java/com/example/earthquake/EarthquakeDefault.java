@@ -10,6 +10,7 @@ import android.widget.TextView;
 public class EarthquakeDefault extends AppCompatActivity {
 
     private TextView mTextMessage;
+    String uri = new String("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&endtime=2014-01-02");
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -19,9 +20,11 @@ public class EarthquakeDefault extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     mTextMessage.setText(R.string.title_home);
+                    new ASyncRetrieveEarthquakeDataTask(mTextMessage).execute(uri);
                     return true;
                 case R.id.navigation_dashboard:
                     mTextMessage.setText(R.string.title_dashboard);
+                    new ASyncRetrieveEarthquakeDataTask(mTextMessage).execute(uri);
                     return true;
                 case R.id.navigation_notifications:
                     mTextMessage.setText(R.string.title_notifications);
@@ -41,7 +44,6 @@ public class EarthquakeDefault extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        String uri = new String("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&endtime=2014-01-02");
         new ASyncRetrieveEarthquakeDataTask(mTextMessage).execute(uri);
     }
 
