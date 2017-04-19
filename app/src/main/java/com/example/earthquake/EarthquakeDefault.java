@@ -42,7 +42,7 @@ public class EarthquakeDefault extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         String uri = new String("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&endtime=2014-01-02");
-        new ASyncRetrieveEarthquakeDataTask().execute(uri);
+        new ASyncRetrieveEarthquakeDataTask(mTextMessage).execute(uri);
     }
 
 }

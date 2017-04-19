@@ -1,6 +1,7 @@
 package com.example.earthquake;
 
 import android.os.AsyncTask;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,6 +20,12 @@ import java.util.logging.Logger;
  */
 
 class ASyncRetrieveEarthquakeDataTask extends AsyncTask <String, Void, JSONObject> {
+
+    private TextView textView;
+
+    public ASyncRetrieveEarthquakeDataTask(TextView textView) {
+        this.textView = textView;
+    }
 
     @Override
     protected JSONObject doInBackground(String... url){
@@ -48,8 +55,10 @@ class ASyncRetrieveEarthquakeDataTask extends AsyncTask <String, Void, JSONObjec
             }
 
             result = new JSONObject(builder.toString());
-            //JSONObject main = topLevel.getJSONObject("main");
+            JSONObject main = result.getJSONObject("main");
             //weather = String.valueOf(main.getDouble("temp"));
+
+            textView.setText(result.toString());
 
             urlConnection.disconnect();
         } catch (IOException | JSONException e) {
