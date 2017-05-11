@@ -32,7 +32,6 @@ class ASyncRetrieveEarthquakeDataTask extends AsyncTask <String, Void, JSONObjec
         return loadEarthquakeData(url[0]);
     }
 
-    @Override
     protected void onProgressUpdate(Integer... progress) {
 
     }
@@ -60,6 +59,7 @@ class ASyncRetrieveEarthquakeDataTask extends AsyncTask <String, Void, JSONObjec
             }
 
             result = new JSONObject(builder.toString());
+
             //JSONObject main = result.getJSONObject("main");
             //weather = String.valueOf(main.getDouble("temp"));
 
