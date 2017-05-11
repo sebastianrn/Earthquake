@@ -27,6 +27,8 @@ class ASyncRetrieveEarthquakeDataTask extends AsyncTask <String, Void, JSONObjec
         this.textView = textView;
     }
 
+    public ASyncRetrieveEarthquakeDataTask() {}
+
     @Override
     protected JSONObject doInBackground(String... url){
         return loadEarthquakeData(url[0]);

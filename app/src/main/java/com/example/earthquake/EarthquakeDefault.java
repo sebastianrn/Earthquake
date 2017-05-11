@@ -64,7 +64,9 @@ public class EarthquakeDefault extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        new ASyncRetrieveEarthquakeDataTask(mTextMessage).execute(uri);
+        ASyncRetrieveEarthquakeDataTask async = new ASyncRetrieveEarthquakeDataTask();
+        async.execute(uri);
+        async.
     }
 
 }
