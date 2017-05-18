@@ -13,11 +13,7 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-public class EarthquakeDefault extends AppCompatActivity {
+public class EarthquakeDefaultActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
     private RecyclerView mRecyclerView;
@@ -69,7 +65,7 @@ public class EarthquakeDefault extends AppCompatActivity {
                 basicFeatureInfo[i] = feature.getJSONObject("properties").get("place").toString();
             }
 
-            mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+            mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
             // use this setting to improve performance if you know that changes
             // in content do not change the layout size of the RecyclerView
@@ -80,7 +76,7 @@ public class EarthquakeDefault extends AppCompatActivity {
             mRecyclerView.setLayoutManager(mLayoutManager);
 
             // specify an adapter (see also next example)
-            mAdapter = new MyAdapter(basicFeatureInfo);
+            mAdapter = new EarthquakeAdapter(basicFeatureInfo);
             mRecyclerView.setAdapter(mAdapter);
 
             /*mTextMessage = (TextView) findViewById(R.id.message);
