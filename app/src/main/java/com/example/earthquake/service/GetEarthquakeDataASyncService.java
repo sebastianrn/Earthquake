@@ -1,4 +1,4 @@
-package com.example.earthquake;
+package com.example.earthquake.service;
 
 import android.os.AsyncTask;
 import android.widget.TextView;
@@ -19,15 +19,15 @@ import java.util.logging.Logger;
  * Created by sebas on 15.04.2017.
  */
 
-class ASyncRetrieveEarthquakeDataTask extends AsyncTask <String, Void, JSONObject> {
+public class GetEarthquakeDataASyncService extends AsyncTask <String, Void, JSONObject> {
 
     private TextView textView;
 
-    public ASyncRetrieveEarthquakeDataTask(TextView textView) {
+    public GetEarthquakeDataASyncService(TextView textView) {
         this.textView = textView;
     }
 
-    public ASyncRetrieveEarthquakeDataTask() {}
+    public GetEarthquakeDataASyncService() {}
 
     @Override
     protected JSONObject doInBackground(String... url){

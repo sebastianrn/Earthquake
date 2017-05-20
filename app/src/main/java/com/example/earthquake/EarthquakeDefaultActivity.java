@@ -1,5 +1,8 @@
 package com.example.earthquake;
 
+import com.example.earthquake.model.EarthquakeDataObject;
+import com.example.earthquake.model.Feature;
+import com.example.earthquake.service.*;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -12,6 +15,8 @@ import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.List;
 
 public class EarthquakeDefaultActivity extends AppCompatActivity {
 
@@ -31,11 +36,11 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     mTextMessage.setText(R.string.title_home);
-                    new ASyncRetrieveEarthquakeDataTask(mTextMessage).execute(uri);
+                    new GetEarthquakeDataASyncService(mTextMessage).execute(uri);
                     return true;
                 case R.id.navigation_dashboard:
                     mTextMessage.setText(R.string.title_dashboard);
-                    new ASyncRetrieveEarthquakeDataTask(mTextMessage).execute(uri);
+                    new GetEarthquakeDataASyncService(mTextMessage).execute(uri);
                     return true;
                 case R.id.navigation_notifications:
                     mTextMessage.setText(R.string.title_notifications);
@@ -51,21 +56,15 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_earthquake_default);
 
-        ASyncRetrieveEarthquakeDataTask async = new ASyncRetrieveEarthquakeDataTask();
+        GetEarthquakeDataASyncService async = new GetEarthquakeDataASyncService();
         try{
             result =  async.execute(uri).get();
 
-            JSONArray resultJsonArray = result.getJSONArray("features");
-            Integer noOfFeatures = resultJsonArray.length();
+            Json2JavaMapperService earthquakeMapper = new Json2JavaMapperService(result);
+            EarthquakeDataObject earthquakeDataObject = earthquakeMapper.getEarthquakeDataObject();
+            List<Feature> earthquakeList = earthquakeDataObject.getFeatures();
 
-            String [] basicFeatureInfo = new String[noOfFeatures];
-
-            for (int i = 0; i < noOfFeatures; i++) {
-                JSONObject feature = resultJsonArray.getJSONObject(i);
-                basicFeatureInfo[i] = feature.getJSONObject("properties").get("place").toString();
-            }
-
-            mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+            mRecyclerView = (RecyclerView) findViewById(R.id.rvEarthquake);
 
             // use this setting to improve performance if you know that changes
             // in content do not change the layout size of the RecyclerView
@@ -76,7 +75,7 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
             mRecyclerView.setLayoutManager(mLayoutManager);
 
             // specify an adapter (see also next example)
-            mAdapter = new EarthquakeAdapter(basicFeatureInfo);
+            mAdapter = new EarthquakeAdapter(this, earthquakeList);
             mRecyclerView.setAdapter(mAdapter);
 
             /*mTextMessage = (TextView) findViewById(R.id.message);
