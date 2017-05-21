@@ -1,6 +1,8 @@
 package com.example.earthquake;
 
 import android.content.Context;
+import android.icu.text.SimpleDateFormat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +10,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.earthquake.model.Feature;
+import com.example.earthquake.Utils;
 
+import org.w3c.dom.Text;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,13 +30,17 @@ public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.Vi
     // you provide access to all the views for a data item in a view holder
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
+        public CardView itemCardView;
         public TextView placeTextView;
         public TextView magnitudeTextView;
+        public TextView dateTextView;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            placeTextView = (TextView) itemView.findViewById(R.id.textViewPlace);
-            magnitudeTextView = (TextView) itemView.findViewById(R.id.textViewMagnitude);
+            itemCardView = (CardView)itemView.findViewById(R.id.itemCardView);
+            placeTextView = (TextView)itemView.findViewById(R.id.textViewPlace);
+            magnitudeTextView = (TextView)itemView.findViewById(R.id.textViewMagnitude);
+            dateTextView = (TextView)itemView.findViewById(R.id.textViewDate);
         }
     }
 
@@ -66,6 +76,9 @@ public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.Vi
 
         TextView textViewMag = holder.magnitudeTextView;
         textViewMag.setText(earthquake.getProperties().getMag().toString());
+
+        TextView textViewDate = holder.dateTextView;
+        textViewDate.setText(new Utils().getFormattedDate(earthquake.getProperties().getTime()));
     }
 
     // Return the size of your dataset (invoked by the layout manager)
