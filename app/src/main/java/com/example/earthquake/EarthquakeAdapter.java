@@ -24,6 +24,7 @@ import java.util.List;
 public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.ViewHolder> {
     private List<Feature> earthquakesList;
     private Context context;
+    private Utils utils = new Utils();
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -78,7 +79,7 @@ public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.Vi
         textViewMag.setText(earthquake.getProperties().getMag().toString());
 
         TextView textViewDate = holder.dateTextView;
-        textViewDate.setText(new Utils().getFormattedDate(earthquake.getProperties().getTime()));
+        textViewDate.setText(utils.getFormattedDate(earthquake.getProperties().getTime()).toString());
     }
 
     // Return the size of your dataset (invoked by the layout manager)
