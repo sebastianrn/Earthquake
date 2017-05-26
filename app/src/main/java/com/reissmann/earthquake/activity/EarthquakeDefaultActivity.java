@@ -1,21 +1,19 @@
-package com.reissmann.earthquake;
+package com.reissmann.earthquake.activity;
 
+import com.reissmann.earthquake.ClickListenerInterface;
+import com.reissmann.earthquake.EarthquakeAdapter;
+import com.reissmann.earthquake.R;
+import com.reissmann.earthquake.RecyclerViewTouchListener;
 import com.reissmann.earthquake.model.EarthquakeDataObject;
 import com.reissmann.earthquake.model.Feature;
 import com.reissmann.earthquake.service.*;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,29 +30,6 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private JSONObject result;
     private Toolbar mToolbar;
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
-                    //new GetEarthquakeDataASyncService(mTextMessage).execute(uri);
-                    return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
-                    //new GetEarthquakeDataASyncService(mTextMessage).execute(uri);
-                    return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
-                    return true;
-            }
-            return false;
-        }
-
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,8 +64,8 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
             mAdapter = new EarthquakeAdapter(this, earthquakeList);
             mRecyclerView.setAdapter(mAdapter);
 
-            mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(this,
-                    mRecyclerView, new ClickListener() {
+            mRecyclerView.addOnItemTouchListener(new RecyclerViewTouchListener(this,
+                    mRecyclerView, new ClickListenerInterface() {
                 @Override
                 public void onClick(View view, final int position) {
                     //Values are passing to activity & to fragment as well
