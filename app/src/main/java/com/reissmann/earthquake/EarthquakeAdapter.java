@@ -17,7 +17,7 @@ import java.util.List;
  */
 
 public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.ViewHolder> {
-    private List<Feature> earthquakesList;
+    private List<Feature> earthquakeList;
     private Context context;
     private Utils utils = new Utils();
 
@@ -41,8 +41,8 @@ public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.Vi
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public EarthquakeAdapter(Context context, List<Feature> earthquakesList) {
-        this.earthquakesList = earthquakesList;
+    public EarthquakeAdapter(Context context, List<Feature> earthquakeList) {
+        this.earthquakeList = earthquakeList;
         this.context = context;
     }
 
@@ -65,7 +65,7 @@ public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.Vi
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Feature earthquake = earthquakesList.get(position);
+        Feature earthquake = earthquakeList.get(position);
 
         TextView textViewPlace = holder.placeTextView;
         textViewPlace.setText(earthquake.getProperties().getPlace());
@@ -80,6 +80,6 @@ public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.Vi
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return earthquakesList.size();
+        return earthquakeList.size();
     }
 }
