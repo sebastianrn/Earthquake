@@ -1,6 +1,21 @@
 apply plugin: 'com.android.application'
 
+allprojects {
+    buildDir = $/C:\Users\sebas\Google Drive\Development\earthquake\builds/$
+    repositories {
+
+    }
+}
+
 android {
+    signingConfigs {
+        config {
+            keyAlias 'earthquake_key_alias'
+            keyPassword 'einstein'
+            storeFile file('C:/Users/sebas/Google Drive/Development/earthquake/earthquake_keystore.jks')
+            storePassword 'einstein'
+        }
+    }
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
@@ -23,7 +38,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
