@@ -1,8 +1,7 @@
 
-package com.example.earthquake.model;
+package com.reissmann.earthquake.model;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -14,14 +13,20 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "type",
-    "coordinates"
+    "properties",
+    "geometry",
+    "id"
 })
-public class Geometry {
+public class Feature {
 
     @JsonProperty("type")
     private String type;
-    @JsonProperty("coordinates")
-    private List<Double> coordinates = null;
+    @JsonProperty("properties")
+    private Properties properties;
+    @JsonProperty("geometry")
+    private Geometry geometry;
+    @JsonProperty("id")
+    private String id;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -35,14 +40,34 @@ public class Geometry {
         this.type = type;
     }
 
-    @JsonProperty("coordinates")
-    public List<Double> getCoordinates() {
-        return coordinates;
+    @JsonProperty("properties")
+    public Properties getProperties() {
+        return properties;
     }
 
-    @JsonProperty("coordinates")
-    public void setCoordinates(List<Double> coordinates) {
-        this.coordinates = coordinates;
+    @JsonProperty("properties")
+    public void setProperties(Properties properties) {
+        this.properties = properties;
+    }
+
+    @JsonProperty("geometry")
+    public Geometry getGeometry() {
+        return geometry;
+    }
+
+    @JsonProperty("geometry")
+    public void setGeometry(Geometry geometry) {
+        this.geometry = geometry;
+    }
+
+    @JsonProperty("id")
+    public String getId() {
+        return id;
+    }
+
+    @JsonProperty("id")
+    public void setId(String id) {
+        this.id = id;
     }
 
     @JsonAnyGetter

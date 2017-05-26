@@ -1,8 +1,8 @@
-package com.example.earthquake;
+package com.reissmann.earthquake;
 
-import com.example.earthquake.model.EarthquakeDataObject;
-import com.example.earthquake.model.Feature;
-import com.example.earthquake.service.*;
+import com.reissmann.earthquake.model.EarthquakeDataObject;
+import com.reissmann.earthquake.model.Feature;
+import com.reissmann.earthquake.service.*;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -14,12 +14,9 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.List;
-
-import static android.support.v7.widget.AppCompatDrawableManager.get;
 
 public class EarthquakeDefaultActivity extends AppCompatActivity {
 
@@ -56,7 +53,7 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_earthquake_default);
+        setContentView(R.layout.earthquake_default_activity);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 

@@ -1,6 +1,4 @@
-package com.example.earthquake;
-
-import java.text.DecimalFormat;
+package com.reissmann.earthquake;
 
 /**
  * Created by se_re on 16.05.2017.

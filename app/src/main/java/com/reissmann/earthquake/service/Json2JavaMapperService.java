@@ -1,8 +1,8 @@
-package com.example.earthquake.service;
+package com.reissmann.earthquake.service;
 
 import android.util.Log;
 
-import com.example.earthquake.model.EarthquakeDataObject;
+import com.reissmann.earthquake.model.EarthquakeDataObject;
 import com.fasterxml.jackson.databind.*;
 
 import org.json.JSONObject;

@@ -1,4 +1,4 @@
-package com.example.earthquake;
+package com.reissmann.earthquake;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

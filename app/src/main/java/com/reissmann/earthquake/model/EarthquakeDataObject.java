@@ -1,5 +1,5 @@
 
-package com.example.earthquake.model;
+package com.reissmann.earthquake.model;
 
 import java.util.HashMap;
 import java.util.List;

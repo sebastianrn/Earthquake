@@ -1,4 +1,4 @@
-package com.example.earthquake;
+package com.reissmann.earthquake;
 
 import org.junit.Test;
 

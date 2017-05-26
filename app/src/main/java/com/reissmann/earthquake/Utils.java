@@ -1,4 +1,4 @@
-package com.example.earthquake;
+package com.reissmann.earthquake;
 
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.TimeZone;

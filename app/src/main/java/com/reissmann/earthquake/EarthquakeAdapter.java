@@ -1,7 +1,6 @@
-package com.example.earthquake;
+package com.reissmann.earthquake;
 
 import android.content.Context;
-import android.icu.text.SimpleDateFormat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,12 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.earthquake.model.Feature;
-import com.example.earthquake.Utils;
+import com.reissmann.earthquake.model.Feature;
 
-import org.w3c.dom.Text;
-
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -61,7 +56,7 @@ public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.Vi
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        View earthquakeView = inflater.inflate(R.layout.item_earthquake, parent,false);
+        View earthquakeView = inflater.inflate(R.layout.earthquake_default_item, parent,false);
 
         ViewHolder vh = new ViewHolder(earthquakeView);
         return vh;
