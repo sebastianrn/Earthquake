@@ -3,6 +3,8 @@ package com.reissmann.earthquake;
 import com.reissmann.earthquake.model.EarthquakeDataObject;
 import com.reissmann.earthquake.model.Feature;
 import com.reissmann.earthquake.service.*;
+
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -11,8 +13,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -82,10 +88,26 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
             // specify an adapter (see also next example)
             mAdapter = new EarthquakeAdapter(this, earthquakeList);
             mRecyclerView.setAdapter(mAdapter);
+
+            mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(this,
+                    mRecyclerView, new ClickListener() {
+                @Override
+                public void onClick(View view, final int position) {
+                    //Values are passing to activity & to fragment as well
+                    Toast.makeText(EarthquakeDefaultActivity.this, "Single Click on position: " + position,
+                            Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onLongClick(View view, int position) {
+                    Toast.makeText(EarthquakeDefaultActivity.this, "Long press on position: " + position,
+                            Toast.LENGTH_LONG).show();
+                }
+            }));
+
         } catch (Exception e){
             Log.println(Log.ERROR,"",e.toString());
         }
 
     }
-
 }
