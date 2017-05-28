@@ -1,6 +1,9 @@
 
 package com.reissmann.earthquake.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.HashMap;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -17,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "geometry",
     "id"
 })
-public class Feature {
+public class Feature implements Parcelable{
 
     @JsonProperty("type")
     private String type;
@@ -80,4 +83,40 @@ public class Feature {
         this.additionalProperties.put(name, value);
     }
 
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.type);
+        dest.writeParcelable(this.properties, flags);
+        dest.writeParcelable(this.geometry, flags);
+        dest.writeString(this.id);
+    }
+
+    public Feature() {
+    }
+
+    protected Feature(Parcel in) {
+        this.type = in.readString();
+        this.properties = in.readParcelable(Properties.class.getClassLoader());
+        this.geometry = in.readParcelable(Geometry.class.getClassLoader());
+        this.id = in.readString();
+        int additionalPropertiesSize = in.readInt();
+    }
+
+    public static final Creator<Feature> CREATOR = new Creator<Feature>() {
+        @Override
+        public Feature createFromParcel(Parcel source) {
+            return new Feature(source);
+        }
+
+        @Override
+        public Feature[] newArray(int size) {
+            return new Feature[size];
+        }
+    };
 }

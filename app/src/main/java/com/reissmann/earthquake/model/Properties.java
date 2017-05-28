@@ -1,6 +1,10 @@
 
 package com.reissmann.earthquake.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -39,7 +43,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "type",
     "title"
 })
-public class Properties {
+public class Properties implements Parcelable {
 
     @JsonProperty("mag")
     private Double mag;
@@ -56,13 +60,13 @@ public class Properties {
     @JsonProperty("detail")
     private String detail;
     @JsonProperty("felt")
-    private Object felt;
+    private Integer felt;
     @JsonProperty("cdi")
-    private Object cdi;
+    private Double cdi;
     @JsonProperty("mmi")
-    private Object mmi;
+    private Double mmi;
     @JsonProperty("alert")
-    private Object alert;
+    private String alert;
     @JsonProperty("status")
     private String status;
     @JsonProperty("tsunami")
@@ -167,42 +171,42 @@ public class Properties {
     }
 
     @JsonProperty("felt")
-    public Object getFelt() {
+    public Integer getFelt() {
         return felt;
     }
 
     @JsonProperty("felt")
-    public void setFelt(Object felt) {
+    public void setFelt(Integer felt) {
         this.felt = felt;
     }
 
     @JsonProperty("cdi")
-    public Object getCdi() {
+    public Double getCdi() {
         return cdi;
     }
 
     @JsonProperty("cdi")
-    public void setCdi(Object cdi) {
+    public void setCdi(Double cdi) {
         this.cdi = cdi;
     }
 
     @JsonProperty("mmi")
-    public Object getMmi() {
+    public Double getMmi() {
         return mmi;
     }
 
     @JsonProperty("mmi")
-    public void setMmi(Object mmi) {
+    public void setMmi(Double mmi) {
         this.mmi = mmi;
     }
 
     @JsonProperty("alert")
-    public Object getAlert() {
+    public String getAlert() {
         return alert;
     }
 
     @JsonProperty("alert")
-    public void setAlert(Object alert) {
+    public void setAlert(String alert) {
         this.alert = alert;
     }
 
@@ -366,4 +370,83 @@ public class Properties {
         this.additionalProperties.put(name, value);
     }
 
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.mag);
+        dest.writeString(this.place);
+        dest.writeValue(this.time);
+        dest.writeValue(this.updated);
+        dest.writeValue(this.tz);
+        dest.writeString(this.url);
+        dest.writeString(this.detail);
+        dest.writeValue(this.felt);
+        dest.writeValue(this.cdi);
+        dest.writeValue(this.mmi);
+        dest.writeString(this.alert);
+        dest.writeString(this.status);
+        dest.writeValue(this.tsunami);
+        dest.writeValue(this.sig);
+        dest.writeString(this.net);
+        dest.writeString(this.code);
+        dest.writeString(this.ids);
+        dest.writeString(this.sources);
+        dest.writeString(this.types);
+        dest.writeValue(this.nst);
+        dest.writeValue(this.dmin);
+        dest.writeValue(this.rms);
+        dest.writeValue(this.gap);
+        dest.writeString(this.magType);
+        dest.writeString(this.type);
+        dest.writeString(this.title);
+    }
+
+    public Properties() {
+    }
+
+    protected Properties(Parcel in) {
+        this.mag = (Double) in.readValue(Double.class.getClassLoader());
+        this.place = in.readString();
+        this.time = (Long) in.readValue(Long.class.getClassLoader());
+        this.updated = (Long) in.readValue(Long.class.getClassLoader());
+        this.tz = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.url = in.readString();
+        this.detail = in.readString();
+        this.felt = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.cdi = (Double) in.readValue(Double.class.getClassLoader());
+        this.mmi = (Double) in.readValue(Double.class.getClassLoader());
+        this.alert = in.readString();
+        this.status = in.readString();
+        this.tsunami = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.sig = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.net = in.readString();
+        this.code = in.readString();
+        this.ids = in.readString();
+        this.sources = in.readString();
+        this.types = in.readString();
+        this.nst = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.dmin = (Double) in.readValue(Double.class.getClassLoader());
+        this.rms = (Double) in.readValue(Double.class.getClassLoader());
+        this.gap = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.magType = in.readString();
+        this.type = in.readString();
+        this.title = in.readString();
+    }
+
+    public static final Creator<Properties> CREATOR = new Creator<Properties>() {
+        @Override
+        public Properties createFromParcel(Parcel source) {
+            return new Properties(source);
+        }
+
+        @Override
+        public Properties[] newArray(int size) {
+            return new Properties[size];
+        }
+    };
 }

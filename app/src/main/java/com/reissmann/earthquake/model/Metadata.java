@@ -1,6 +1,9 @@
 
 package com.reissmann.earthquake.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.HashMap;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -19,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "api",
     "count"
 })
-public class Metadata {
+public class Metadata implements Parcelable {
 
     @JsonProperty("generated")
     private Long generated;
@@ -106,4 +109,44 @@ public class Metadata {
         this.additionalProperties.put(name, value);
     }
 
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.generated);
+        dest.writeString(this.url);
+        dest.writeString(this.title);
+        dest.writeValue(this.status);
+        dest.writeString(this.api);
+        dest.writeValue(this.count);
+    }
+
+    public Metadata() {
+    }
+
+    protected Metadata(Parcel in) {
+        this.generated = (Long) in.readValue(Long.class.getClassLoader());
+        this.url = in.readString();
+        this.title = in.readString();
+        this.status = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.api = in.readString();
+        this.count = (Integer) in.readValue(Integer.class.getClassLoader());
+        int additionalPropertiesSize = in.readInt();
+    }
+
+    public static final Parcelable.Creator<Metadata> CREATOR = new Parcelable.Creator<Metadata>() {
+        @Override
+        public Metadata createFromParcel(Parcel source) {
+            return new Metadata(source);
+        }
+
+        @Override
+        public Metadata[] newArray(int size) {
+            return new Metadata[size];
+        }
+    };
 }

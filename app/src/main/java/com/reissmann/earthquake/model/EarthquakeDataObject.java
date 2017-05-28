@@ -1,6 +1,10 @@
 
 package com.reissmann.earthquake.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "features",
     "bbox"
 })
-public class EarthquakeDataObject {
+public class EarthquakeDataObject implements Parcelable {
 
     @JsonProperty("type")
     private String type;
@@ -81,4 +85,40 @@ public class EarthquakeDataObject {
         this.additionalProperties.put(name, value);
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.type);
+        dest.writeParcelable(this.metadata, flags);
+        dest.writeTypedList(this.features);
+        dest.writeList(this.bbox);
+    }
+
+    public EarthquakeDataObject() {
+    }
+
+    protected EarthquakeDataObject(Parcel in) {
+        this.type = in.readString();
+        this.metadata = in.readParcelable(Metadata.class.getClassLoader());
+        this.features = in.createTypedArrayList(Feature.CREATOR);
+        this.bbox = new ArrayList<Double>();
+        in.readList(this.bbox, Double.class.getClassLoader());
+        int additionalPropertiesSize = in.readInt();
+    }
+
+    public static final Parcelable.Creator<EarthquakeDataObject> CREATOR = new Parcelable.Creator<EarthquakeDataObject>() {
+        @Override
+        public EarthquakeDataObject createFromParcel(Parcel source) {
+            return new EarthquakeDataObject(source);
+        }
+
+        @Override
+        public EarthquakeDataObject[] newArray(int size) {
+            return new EarthquakeDataObject[size];
+        }
+    };
 }

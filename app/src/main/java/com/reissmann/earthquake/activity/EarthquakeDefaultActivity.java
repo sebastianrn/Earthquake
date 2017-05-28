@@ -8,6 +8,7 @@ import com.reissmann.earthquake.model.EarthquakeDataObject;
 import com.reissmann.earthquake.model.Feature;
 import com.reissmann.earthquake.service.*;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,6 +33,11 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
     private Toolbar mToolbar;
 
     @Override
+    public void onDestroy(){
+        super.onDestroy();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earthquake_default_activity);
@@ -47,7 +53,7 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
             result =  async.execute(this.getString(R.string.api_uri)).get();
 
             Json2JavaMapperService earthquakeMapper = new Json2JavaMapperService(result);
-            EarthquakeDataObject earthquakeDataObject = earthquakeMapper.getEarthquakeDataObject();
+            final EarthquakeDataObject earthquakeDataObject = earthquakeMapper.getEarthquakeDataObject();
             List<Feature> earthquakeList = earthquakeDataObject.getFeatures();
 
             mRecyclerView = (RecyclerView) findViewById(R.id.rvEarthquake);
@@ -71,6 +77,10 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
                     //Values are passing to activity & to fragment as well
                     Toast.makeText(EarthquakeDefaultActivity.this, "Single Click on position: " + position,
                             Toast.LENGTH_SHORT).show();
+                    Intent item_intent = new Intent(EarthquakeDefaultActivity.this, EarthquakeDetailActivity.class);
+
+                    item_intent.putExtra("EarthquakeItem", earthquakeDataObject.getFeatures().get(position));
+                    startActivity(item_intent);
                 }
 
                 @Override

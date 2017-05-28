@@ -1,12 +1,5 @@
 apply plugin: 'com.android.application'
 
-allprojects {
-    buildDir = $/C:\Users\sebas\Google Drive\Development\earthquake\builds/$
-    repositories {
-
-    }
-}
-
 android {
     signingConfigs {
         config {
