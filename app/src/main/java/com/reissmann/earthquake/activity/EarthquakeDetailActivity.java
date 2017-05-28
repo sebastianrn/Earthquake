@@ -12,6 +12,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
@@ -45,9 +46,13 @@ public class EarthquakeDetailActivity extends FragmentActivity
                 .position(targetLocation)
                 .title("Marker"));
 
+        map.getUiSettings().setZoomControlsEnabled(true);
+        map.getUiSettings().setCompassEnabled(true);
+        map.getUiSettings().setMapToolbarEnabled(true);
+
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(targetLocation)
-                .zoom(1)
+                .zoom(6)
                 .build();
 
         map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
