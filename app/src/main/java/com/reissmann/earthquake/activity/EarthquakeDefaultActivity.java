@@ -75,10 +75,7 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view, final int position) {
                     //Values are passing to activity & to fragment as well
-                    Toast.makeText(EarthquakeDefaultActivity.this, "Single Click on position: " + position,
-                            Toast.LENGTH_SHORT).show();
                     Intent item_intent = new Intent(EarthquakeDefaultActivity.this, EarthquakeDetailActivity.class);
-
                     item_intent.putExtra("EarthquakeItem", earthquakeDataObject.getFeatures().get(position));
                     startActivity(item_intent);
                 }
