@@ -1,11 +1,20 @@
 apply plugin: 'com.android.application'
 
+allprojects {
+    //buildDir = $/C:\Users\sebas\Google Drive\Development\earthquake\builds/$
+    buildDir = $/C:\Users\SE_RE\Google Drive\Development\earthquake\builds/$
+    repositories {
+
+    }
+}
+
 android {
     signingConfigs {
         config {
             keyAlias 'earthquake_key_alias'
             keyPassword 'einstein'
-            storeFile file('C:/Users/sebas/Google Drive/Development/earthquake/earthquake_keystore.jks')
+            //storeFile file('C:/Users/sebas/Google Drive/Development/earthquake/earthquake_keystore.jks')
+            storeFile file('C:/Users/SE_RE/Google Drive/Development/earthquake/earthquake_keystore.jks')
             storePassword 'einstein'
         }
     }
