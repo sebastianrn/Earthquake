@@ -5,35 +5,18 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-    <LinearLayout
+    <fragment
+        android:id="@+id/map"
+        class="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        android:layout_weight=".8">
-        <fragment
-            android:id="@+id/map"
-            class="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </LinearLayout>
+        android:layout_height="match_parent"
+        android:layout_weight=".2" />
 
-    <RelativeLayout
+    <FrameLayout
+        android:id="@+id/details_fragment"
+        class="com.reissmann.earthquake.activity.EarthquakeDetailMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        android:layout_weight=".2">
+        android:layout_height="match_parent"
+        android:layout_weight=".8" />
 
-        <TextView
-            android:id="@+id/earthquake_place"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView Text Here"
-            android:layout_marginLeft="40dp"
-            android:layout_marginStart="40dp"
-            android:lineSpacingExtra="14sp"
-            android:textSize="18sp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-    </RelativeLayout>
 </LinearLayout>

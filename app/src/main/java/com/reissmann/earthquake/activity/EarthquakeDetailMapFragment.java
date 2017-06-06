@@ -3,6 +3,7 @@ package com.reissmann.earthquake.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +20,9 @@ import com.reissmann.earthquake.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EarthquakeDetailMapFragment extends Fragment implements OnMapReadyCallback {
-    private double latitude;
-    private double longitude;
+public class EarthquakeDetailMapFragment extends Fragment {
+
+    TextView place;
 
     public EarthquakeDetailMapFragment() {
         // Required empty public constructor
@@ -30,27 +31,18 @@ public class EarthquakeDetailMapFragment extends Fragment implements OnMapReadyC
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.earthquake_details_map_fragment, container, false);
+        View view = inflater.inflate(R.layout.earthquake_details_map_fragment, null, false);
+        TextView place = (TextView) view.findViewById(R.id.place);
+
+        String place_arg = getArguments().getString("place");
+        place.setText(place_arg);
+
+        return view;
     }
 
     @Override
-    public void onMapReady(GoogleMap map) {
-        LatLng targetLocation = new LatLng(latitude, longitude);
+    public void onViewCreated(View view, Bundle bundle){
+        Log.println(Log.ERROR,"", "");
 
-        map.addMarker(new MarkerOptions()
-                .position(targetLocation)
-                .title("Marker"));
-
-        map.getUiSettings().setZoomControlsEnabled(true);
-        map.getUiSettings().setCompassEnabled(true);
-        map.getUiSettings().setMapToolbarEnabled(true);
-
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(targetLocation)
-                .zoom(6)
-                .build();
-
-        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
-
 }

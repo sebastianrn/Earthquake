@@ -3,6 +3,7 @@ package com.reissmann.earthquake.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Property;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ public class EarthquakeDetailActivity extends FragmentActivity implements OnMapR
     private String testmessage;
     private double latitude;
     private double longitude;
+    private static FragmentManager fragmentManager;
 
     @Override
     public void onDestroy(){
@@ -51,12 +53,16 @@ public class EarthquakeDetailActivity extends FragmentActivity implements OnMapR
         longitude = earthquakeItem.getGeometry().getCoordinates().get(0);
         testmessage = earthquakeItem.getProperties().getPlace();
 
+        fragmentManager = getSupportFragmentManager();
+
+        EarthquakeDetailMapFragment mapDetails = new EarthquakeDetailMapFragment();
+        Bundle args = new Bundle();
+        args.putString("place", testmessage);
+        mapDetails.setArguments(args);
+        fragmentManager.beginTransaction().add(mapDetails, "tag").commit();
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-        // Capture the layout's TextView and set the string as its text
-        TextView textView = (TextView) findViewById(R.id.earthquake_place);
-        textView.setText(testmessage);
     }
 
     @Override
