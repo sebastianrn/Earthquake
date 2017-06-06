@@ -26,9 +26,11 @@ import java.util.List;
  * Created by sebas on 27.05.2017.
  */
 
-public class EarthquakeDetailActivity extends FragmentActivity {
+public class EarthquakeDetailActivity extends FragmentActivity implements OnMapReadyCallback{
 
     private String testmessage;
+    private double latitude;
+    private double longitude;
 
     @Override
     public void onDestroy(){
@@ -43,22 +45,38 @@ public class EarthquakeDetailActivity extends FragmentActivity {
         setContentView(R.layout.earthquake_details);
 
         // Get the Intent that started this activity and extract the string
-        /*Intent intent = getIntent();
+        Intent intent = getIntent();
         Feature earthquakeItem = intent.getParcelableExtra("EarthquakeItem");
         latitude = earthquakeItem.getGeometry().getCoordinates().get(1);
         longitude = earthquakeItem.getGeometry().getCoordinates().get(0);
         testmessage = earthquakeItem.getProperties().getPlace();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);*/
-
-        EarthquakeDetailMapFragment fragment = new EarthquakeDetailMapFragment();
-
-
-        /*String message = intent.getStringExtra(EarthquakeDefaultActivity.ACCOUNT_SERVICE);
+        mapFragment.getMapAsync(this);
 
         // Capture the layout's TextView and set the string as its text
-        TextView textView = (TextView) findViewById(R.id.textView);
-        textView.setText(testmessage);*/
+        TextView textView = (TextView) findViewById(R.id.earthquake_place);
+        textView.setText(testmessage);
     }
+
+    @Override
+    public void onMapReady(GoogleMap map) {
+        LatLng targetLocation = new LatLng(latitude, longitude);
+
+        map.addMarker(new MarkerOptions()
+                .position(targetLocation)
+                .title("Marker"));
+
+        map.getUiSettings().setZoomControlsEnabled(true);
+        map.getUiSettings().setCompassEnabled(true);
+        map.getUiSettings().setMapToolbarEnabled(true);
+
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(targetLocation)
+                .zoom(6)
+                .build();
+
+        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+    }
+
 }
