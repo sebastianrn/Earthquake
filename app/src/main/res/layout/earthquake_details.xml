@@ -6,17 +6,9 @@
     android:weightSum="1">
 
     <FrameLayout
-        android:id="@+id/details_fragment"
-        class="com.reissmann.earthquake.activity.EarthquakeDetailMapFragment"
+        android:id="@+id/details_frame_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight=".8" />
-
-    <fragment
-        android:id="@+id/map"
-        class="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight=".2" />
+        android:layout_height="match_parent">
+    </FrameLayout>
 
 </LinearLayout>

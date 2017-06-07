@@ -27,11 +27,8 @@ import java.util.List;
  * Created by sebas on 27.05.2017.
  */
 
-public class EarthquakeDetailActivity extends FragmentActivity implements OnMapReadyCallback {
+public class EarthquakeDetailActivity extends FragmentActivity {
 
-    private String testmessage;
-    private double latitude;
-    private double longitude;
     private static FragmentManager fragmentManager;
 
     @Override
@@ -46,43 +43,28 @@ public class EarthquakeDetailActivity extends FragmentActivity implements OnMapR
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earthquake_details);
 
-        // Get the Intent that started this activity and extract the string
+        // Get the Intent default activity
         Intent intent = getIntent();
         Feature earthquakeItem = intent.getParcelableExtra("EarthquakeItem");
-        latitude = earthquakeItem.getGeometry().getCoordinates().get(1);
-        longitude = earthquakeItem.getGeometry().getCoordinates().get(0);
-        testmessage = earthquakeItem.getProperties().getPlace();
 
-        fragmentManager = getSupportFragmentManager();
-
-        EarthquakeDetailMapFragment mapDetails = new EarthquakeDetailMapFragment();
+        //Create the bundle which is passed to the detail fragment
         Bundle args = new Bundle();
-        args.putString("place", testmessage);
+        args.putString("place", earthquakeItem.getProperties().getPlace());
+        args.putDouble("latitude", earthquakeItem.getGeometry().getCoordinates().get(1));
+        args.putDouble("longitude", earthquakeItem.getGeometry().getCoordinates().get(0));
+
+        //Create instance of fragment
+        EarthquakeDetailMapFragment mapDetails = new EarthquakeDetailMapFragment();
         mapDetails.setArguments(args);
-        fragmentManager.beginTransaction().add(mapDetails, "tag").commit();
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        //replace the framelayout with the fragment
+        fragmentManager = getSupportFragmentManager();
+        fragmentManager
+                .beginTransaction()
+                .replace(R.id.details_frame_layout, mapDetails)
+                .commit();
     }
 
-    @Override
-    public void onMapReady(GoogleMap map) {
-        LatLng targetLocation = new LatLng(latitude, longitude);
 
-        map.addMarker(new MarkerOptions()
-                .position(targetLocation)
-                .title("Marker"));
-
-        map.getUiSettings().setZoomControlsEnabled(true);
-        map.getUiSettings().setCompassEnabled(true);
-        map.getUiSettings().setMapToolbarEnabled(true);
-
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(targetLocation)
-                .zoom(6)
-                .build();
-
-        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-    }
 
 }
