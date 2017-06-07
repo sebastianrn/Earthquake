@@ -27,7 +27,7 @@ import java.util.List;
  * Created by sebas on 27.05.2017.
  */
 
-public class EarthquakeDetailActivity extends FragmentActivity implements OnMapReadyCallback{
+public class EarthquakeDetailActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private String testmessage;
     private double latitude;

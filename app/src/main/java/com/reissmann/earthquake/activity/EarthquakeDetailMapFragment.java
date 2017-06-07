@@ -22,8 +22,6 @@ import com.reissmann.earthquake.R;
  */
 public class EarthquakeDetailMapFragment extends Fragment {
 
-    TextView place;
-
     public EarthquakeDetailMapFragment() {
         // Required empty public constructor
     }
@@ -31,8 +29,8 @@ public class EarthquakeDetailMapFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.earthquake_details_map_fragment, null, false);
-        TextView place = (TextView) view.findViewById(R.id.place);
+        View view = inflater.inflate(R.layout.earthquake_details_map_fragment, container, false);
+        TextView place = ((TextView) view.findViewById(R.id.place));
 
         String place_arg = getArguments().getString("place");
         place.setText(place_arg);

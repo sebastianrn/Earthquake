@@ -5,17 +5,15 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        android:layout_weight=".2">
 
         <TextView
             android:id="@+id/place"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            />
+            android:layout_marginStart="40dp"
+            android:lineSpacingExtra="14sp"
+            android:text="TextView Text Here haa"
+            android:textSize="18sp" />
 
-    </RelativeLayout>
+
 </LinearLayout>
