@@ -18,6 +18,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.reissmann.earthquake.R;
+import com.reissmann.earthquake.model.Feature;
 
 import static android.content.ContentValues.TAG;
 
@@ -40,22 +41,24 @@ public class EarthquakeDetailMapFragment extends Fragment implements OnMapReadyC
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.earthquake_details_map_fragment, container, false);
-
-        placeTextView = ((TextView) view.findViewById(R.id.place));
-        mMapView = (MapView) view.findViewById(R.id.map_view_fragment);
-        mMapView.onCreate(savedInstanceState);
-        mMapView.getMapAsync(this);
-
-        setBundleValues(savedInstanceState);
-        placeTextView.setText(place);
+        setBundleValues(view, savedInstanceState);
 
         return view;
     }
 
-    private void setBundleValues(Bundle bundle){
-        this.place = getArguments().getString("place");
-        this.latitude = getArguments().getDouble("latitude");
-        this.longitude = getArguments().getDouble("longitude");
+    private void setBundleValues(View view, Bundle savedInstanceState){
+        Feature earthquakeItem = (Feature) getArguments().getParcelable("earthquakeItem");
+
+        this.place = earthquakeItem.getProperties().getPlace();
+        this.latitude = earthquakeItem.getGeometry().getCoordinates().get(1);
+        this.longitude = earthquakeItem.getGeometry().getCoordinates().get(0);
+
+        placeTextView = ((TextView) view.findViewById(R.id.place));
+        placeTextView.setText(place);
+
+        mMapView = (MapView) view.findViewById(R.id.map_view_fragment);
+        mMapView.onCreate(savedInstanceState);
+        mMapView.getMapAsync(this);
     }
 
     @Override

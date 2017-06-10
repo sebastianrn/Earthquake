@@ -36,8 +36,6 @@ public class EarthquakeDetailActivity extends FragmentActivity {
         super.onDestroy();
     }
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,9 +47,7 @@ public class EarthquakeDetailActivity extends FragmentActivity {
 
         //Create the bundle which is passed to the detail fragment
         Bundle args = new Bundle();
-        args.putString("place", earthquakeItem.getProperties().getPlace());
-        args.putDouble("latitude", earthquakeItem.getGeometry().getCoordinates().get(1));
-        args.putDouble("longitude", earthquakeItem.getGeometry().getCoordinates().get(0));
+        args.putParcelable("earthquakeItem", earthquakeItem);
 
         //Create instance of fragment
         EarthquakeDetailMapFragment mapDetails = new EarthquakeDetailMapFragment();
