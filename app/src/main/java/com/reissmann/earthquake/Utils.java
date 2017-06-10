@@ -1,9 +1,10 @@
 package com.reissmann.earthquake;
 
-import android.icu.text.SimpleDateFormat;
-import android.icu.util.TimeZone;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Created by sebas on 21.05.2017.
@@ -20,5 +21,10 @@ public class Utils {
         String dateText = df2.format(date);
 
         return date;
+    }
+
+    public String getFormattedMagnitude(Double mag) {
+        DecimalFormat df2 = new DecimalFormat("0.00");
+        return df2.format(mag);
     }
 }

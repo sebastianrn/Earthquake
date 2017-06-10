@@ -71,7 +71,7 @@ public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.Vi
         textViewPlace.setText(earthquake.getProperties().getPlace());
 
         TextView textViewMag = holder.magnitudeTextView;
-        textViewMag.setText(earthquake.getProperties().getMag().toString());
+        textViewMag.setText(utils.getFormattedMagnitude(earthquake.getProperties().getMag()));
 
         TextView textViewDate = holder.dateTextView;
         textViewDate.setText(utils.getFormattedDate(earthquake.getProperties().getTime()).toString());

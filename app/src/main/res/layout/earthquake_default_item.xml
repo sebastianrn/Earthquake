@@ -22,7 +22,8 @@
             <TextView
                 android:id="@+id/textViewPlace"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/default_activity_item_text_height" />
+                android:layout_height="@dimen/default_activity_item_text_height"
+                android:text="PLACE" />
 
             <TextView
                 android:id="@+id/textViewMagnitude"
@@ -30,13 +31,18 @@
                 android:layout_height="@dimen/default_activity_item_text_height"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/textViewPlace"
-                android:textAppearance="@style/TextAppearance.AppCompat" />
+                android:text="MAG"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewDate"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/default_activity_item_text_height"
-                android:layout_below="@+id/textViewPlace" />
+                android:layout_below="@+id/textViewPlace"
+                android:text="DATE"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textSize="12sp" />
 
         </RelativeLayout>
 

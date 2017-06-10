@@ -3,7 +3,6 @@ package com.reissmann.earthquake.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +33,8 @@ public class EarthquakeDetailMapFragment extends Fragment implements OnMapReadyC
     private double latitude;
     private double longitude;
 
-    public EarthquakeDetailMapFragment() {}
+    public EarthquakeDetailMapFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,7 +46,7 @@ public class EarthquakeDetailMapFragment extends Fragment implements OnMapReadyC
         return view;
     }
 
-    private void setBundleValues(View view, Bundle savedInstanceState){
+    private void setBundleValues(View view, Bundle savedInstanceState) {
         Feature earthquakeItem = (Feature) getArguments().getParcelable("earthquakeItem");
 
         this.place = earthquakeItem.getProperties().getPlace();
@@ -62,8 +62,8 @@ public class EarthquakeDetailMapFragment extends Fragment implements OnMapReadyC
     }
 
     @Override
-    public void onViewCreated(View view, Bundle bundle){
-        Log.println(Log.ERROR,"", "");
+    public void onViewCreated(View view, Bundle bundle) {
+        Log.println(Log.ERROR, "", "");
 
     }
 
