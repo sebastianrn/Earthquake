@@ -1,6 +1,5 @@
 package com.reissmann.earthquake;
 
-
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,6 +24,7 @@ public class Utils {
 
     public String getFormattedMagnitude(Double mag) {
         DecimalFormat df2 = new DecimalFormat("0.00");
+
         return df2.format(mag);
     }
 }
