@@ -53,10 +53,11 @@ public class EarthquakeDetailMapFragment extends Fragment implements OnMapReadyC
         this.latitude = earthquakeItem.getGeometry().getCoordinates().get(1);
         this.longitude = earthquakeItem.getGeometry().getCoordinates().get(0);
 
-        placeTextView = ((TextView) view.findViewById(R.id.place));
+        placeTextView = (TextView) view.findViewById(R.id.place);
+        mMapView = (MapView) view.findViewById(R.id.map_view_fragment);
+
         placeTextView.setText(place);
 
-        mMapView = (MapView) view.findViewById(R.id.map_view_fragment);
         mMapView.onCreate(savedInstanceState);
         mMapView.getMapAsync(this);
     }

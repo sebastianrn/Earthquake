@@ -1,16 +1,24 @@
 <resources>
 
-    <style name="EarthquakeMaterialTheme" parent="EarthquakeMaterialTheme.Base">
-
-    </style>
+    <style name="EarthquakeMaterialTheme" parent="EarthquakeMaterialTheme.Base" />
 
     <style name="EarthquakeMaterialTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
+        <item name="windowActionBar">true</item>
+        <item name="windowActionBarOverlay">true</item>
+
+        <!--<item name="android:textColorSecondary">@style/TextAppearance</item>
+        <item name="android:actionMenuTextColor">@style/TextAppearance</item>-->
+
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
         <item name="titleTextColor">@color/colorActionBarTitle</item>
+    </style>
+
+    <style name="TextAppearance">
+        <item name="android:textColor">@android:color/holo_red_dark</item>
     </style>
 
 </resources>
