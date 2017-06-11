@@ -2,6 +2,7 @@ package com.reissmann.earthquake.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +37,7 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private JSONObject result;
     private Toolbar mToolbar;
+    private RelativeLayout defaultActivityLayout;
 
     @Override
     public void onDestroy(){
@@ -46,6 +49,8 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earthquake_default_activity);
 
+        defaultActivityLayout = (RelativeLayout) findViewById(R.id.defaultActivityLayout);
+
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         //getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -54,47 +59,55 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
         GetEarthquakeDataASyncService async = new GetEarthquakeDataASyncService();
 
         try{
-            result =  async.execute(this.getString(R.string.api_uri)).get();
+            getDataAsync(async);
 
-            Json2JavaMapperService earthquakeMapper = new Json2JavaMapperService(result);
-            final EarthquakeDataObject earthquakeDataObject = earthquakeMapper.getEarthquakeDataObject();
-            List<Feature> earthquakeList = earthquakeDataObject.getFeatures();
-
-            mRecyclerView = (RecyclerView) findViewById(R.id.rvEarthquake);
-
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
-            mRecyclerView.setHasFixedSize(true);
-
-            // use a linear layout manager
-            mLayoutManager = new LinearLayoutManager(this);
-            mRecyclerView.setLayoutManager(mLayoutManager);
-
-            // specify an adapter (see also next example)
-            mAdapter = new EarthquakeAdapter(this, earthquakeList);
-            mRecyclerView.setAdapter(mAdapter);
-
-            mRecyclerView.addOnItemTouchListener(new RecyclerViewTouchListener(this,
-                    mRecyclerView, new ClickListenerInterface() {
-                @Override
-                public void onClick(View view, final int position) {
-                    //Values are passing to activity & to fragment as well
-                    Intent item_intent = new Intent(EarthquakeDefaultActivity.this, EarthquakeDetailActivity.class);
-                    item_intent.putExtra("EarthquakeItem", earthquakeDataObject.getFeatures().get(position));
-                    startActivity(item_intent);
-                }
-
-                @Override
-                public void onLongClick(View view, int position) {
-                    Toast.makeText(EarthquakeDefaultActivity.this, "Long press on position: " + position,
-                            Toast.LENGTH_LONG).show();
-                }
-            }));
-
-        } catch (Exception e){
-            Log.println(Log.ERROR,"",e.toString());
+        } catch (Exception e) {
+            Log.println(Log.ERROR, "", e.toString());
         }
 
+    }
+
+    private void getDataAsync(GetEarthquakeDataASyncService async) throws InterruptedException, java.util.concurrent.ExecutionException {
+        result = async.execute(this.getString(R.string.api_uri)).get();
+
+        Json2JavaMapperService earthquakeMapper = new Json2JavaMapperService(result);
+        final EarthquakeDataObject earthquakeDataObject = earthquakeMapper.getEarthquakeDataObject();
+        List<Feature> earthquakeList = earthquakeDataObject.getFeatures();
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.rvEarthquake);
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        mRecyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        // specify an adapter (see also next example)
+        mAdapter = new EarthquakeAdapter(this, earthquakeList);
+        mRecyclerView.setAdapter(mAdapter);
+
+        mRecyclerView.addOnItemTouchListener(new RecyclerViewTouchListener(this,
+                mRecyclerView, new ClickListenerInterface() {
+            @Override
+            public void onClick(View view, final int position) {
+                //Values are passing to activity & to fragment as well
+                Intent item_intent = new Intent(EarthquakeDefaultActivity.this, EarthquakeDetailActivity.class);
+                item_intent.putExtra("EarthquakeItem", earthquakeDataObject.getFeatures().get(position));
+                startActivity(item_intent);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+                Toast.makeText(EarthquakeDefaultActivity.this, "Long press on position: " + position,
+                        Toast.LENGTH_LONG).show();
+            }
+        }));
+
+        Snackbar snackbar = Snackbar
+                .make(defaultActivityLayout, R.string.snackbar_refresh_complete, Snackbar.LENGTH_LONG);
+        snackbar.show();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -120,8 +133,12 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
                 return true;
 
             case R.id.menu_refresh:
-                // User chose the "Favorite" action, mark the current item
-                // as a favorite...
+                GetEarthquakeDataASyncService async = new GetEarthquakeDataASyncService();
+                try {
+                    getDataAsync(async);
+                } catch (Exception e) {
+                    Log.println(Log.ERROR, "", e.toString());
+                }
                 return true;
 
             default:
