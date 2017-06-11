@@ -9,6 +9,9 @@
 
         <!--<item name="android:textColorSecondary">@color/colorActionBarTitle</item>-->
         <item name="android:actionMenuTextColor">@color/colorActionBarTitle</item>
+        <item name="android:actionOverflowButtonStyle">
+            @style/EarthquakeMaterialTheme.Base.OverFlow
+        </item>
 
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -19,6 +22,10 @@
 
     <style name="TextAppearance">
         <item name="android:textColor">@color/colorActionBarTitle</item>
+    </style>
+
+    <style name="EarthquakeMaterialTheme.Base.OverFlow">
+        <item name="android:src">@drawable/ic_more_vert_white_24px</item>
     </style>
 
 </resources>

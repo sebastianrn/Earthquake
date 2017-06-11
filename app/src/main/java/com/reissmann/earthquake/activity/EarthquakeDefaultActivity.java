@@ -104,11 +104,31 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
         // It is also possible add items here. Use a generated id from
         // resources (ids.xml) to ensure that all menu ids are distinct.
         MenuItem menuRefresh = menu.add(0, R.id.menu_refresh, 0, R.string.menu_refresh);
-        //locationItem.setIcon(R.drawable.ic_action_location);
+        menuRefresh.setIcon(R.drawable.ic_refresh_white_24px);
 
         // Need to use MenuItemCompat methods to call any action item related methods
         MenuItemCompat.setShowAsAction(menuRefresh, MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_settings:
+                // User chose the "Settings" item, show the app settings UI...
+                return true;
+
+            case R.id.menu_refresh:
+                // User chose the "Favorite" action, mark the current item
+                // as a favorite...
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 }
