@@ -15,15 +15,16 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="15dp"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp">
+            android:paddingTop="20dp"
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp">
 
             <TextView
                 android:id="@+id/textViewPlace"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/default_activity_item_text_height"
-                android:text="PLACE" />
+                android:text="PLACE"
+                android:textAppearance="@style/TextAppearance.AppCompat" />
 
             <TextView
                 android:id="@+id/textViewMagnitude"
@@ -41,7 +42,6 @@
                 android:layout_height="@dimen/default_activity_item_text_height"
                 android:layout_below="@+id/textViewPlace"
                 android:text="DATE"
-                android:textAppearance="@style/TextAppearance.AppCompat"
                 android:textSize="12sp" />
 
         </RelativeLayout>
