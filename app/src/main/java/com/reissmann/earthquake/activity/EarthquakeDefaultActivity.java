@@ -2,6 +2,7 @@ package com.reissmann.earthquake.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -106,7 +107,7 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
         //locationItem.setIcon(R.drawable.ic_action_location);
 
         // Need to use MenuItemCompat methods to call any action item related methods
-        //MenuItemCompat.setShowAsAction(menuRefresh, MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        MenuItemCompat.setShowAsAction(menuRefresh, MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         return true;
     }

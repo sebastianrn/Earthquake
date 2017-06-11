@@ -3,8 +3,14 @@
     xmlns:support="http://schemas.android.com/tools">
 
     <item
-        android:id="@+id/menu_refresh"
+        android:id="@+id/menu_settings"
         android:title="@string/menu_settings"
         support:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_refresh"
+        android:title="@string/menu_refresh"
+        android:icon="@drawable/ic_autorenew_black_24dp"
+        support:showAsAction="always" />
 
 </menu>
