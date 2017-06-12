@@ -19,31 +19,63 @@
                             android:layout_height="480dp" />
 
                         <TextView
+                            android:id="@+id/placeLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/map_view_fragment"
+                            android:text="@string/details_place" />
+
+                        <TextView
                             android:id="@+id/place"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/map_view_fragment"
+                            android:layout_toRightOf="@+id/placeLabel"
                             android:text="PLACE" />
+
+                        <TextView
+                            android:id="@+id/magnitudeLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/place"
+                            android:text="@string/details_magnitude" />
 
                         <TextView
                             android:id="@+id/magnitude"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/place"
+                            android:layout_toRightOf="@+id/magnitudeLabel"
                             android:text="MAG" />
+
+                        <TextView
+                            android:id="@+id/timeLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/magnitude"
+                            android:text="@string/details_time" />
 
                         <TextView
                             android:id="@+id/time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/magnitude"
+                            android:layout_toRightOf="@+id/timeLabel"
                             android:text="TIME" />
+
+                        <TextView
+                            android:id="@+id/depthLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/time"
+                            android:text="@string/details_depth" />
 
                         <TextView
                             android:id="@+id/depth"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/time"
+                            android:layout_toRightOf="@+id/depthLabel"
                             android:text="DEPTH" />
 
                 </RelativeLayout>

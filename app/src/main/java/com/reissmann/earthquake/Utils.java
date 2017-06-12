@@ -18,13 +18,16 @@ public class Utils {
         SimpleDateFormat df2 = new SimpleDateFormat("dd.MM.yyyy hh:mm");
         df2.setTimeZone(TimeZone.getTimeZone("Europe/Berlin"));
         String dateText = df2.format(date);
-
         return date;
     }
 
     public String getFormattedMagnitude(Double mag) {
         DecimalFormat df2 = new DecimalFormat("0.00");
-
         return df2.format(mag);
+    }
+
+    public String getFormattedDepth(Double depth) {
+        DecimalFormat df2 = new DecimalFormat("0.00");
+        return df2.format(depth) + " km";
     }
 }

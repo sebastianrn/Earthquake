@@ -6,4 +6,9 @@
     <string name="menu_refresh">Refresh</string>
 
     <string name="snackbar_refresh_complete">Earthquake list updated</string>
+    
+    <string name="details_place">Place</string>
+    <string name="details_magnitude">Magnitude</string>
+    <string name="details_time">Time</string>
+    <string name="details_depth">Depth</string>
 </resources>

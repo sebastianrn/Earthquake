@@ -17,6 +17,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.reissmann.earthquake.R;
+import com.reissmann.earthquake.Utils;
 import com.reissmann.earthquake.model.Feature;
 
 import static android.content.ContentValues.TAG;
@@ -27,9 +28,17 @@ import static android.content.ContentValues.TAG;
 public class EarthquakeDetailMapFragment extends Fragment implements OnMapReadyCallback {
 
     private TextView placeTextView;
-    MapView mMapView;
+    private TextView depthTextView;
+    private TextView timeTextView;
+    private TextView magnitudeTextView;
+
+    private MapView mMapView;
+    private Utils utils = new Utils();
 
     private String place;
+    private String magnitude;
+    private String time;
+    private String depth;
     private double latitude;
     private double longitude;
 
@@ -49,15 +58,25 @@ public class EarthquakeDetailMapFragment extends Fragment implements OnMapReadyC
     private void setBundleValues(View view, Bundle savedInstanceState) {
         Feature earthquakeItem = (Feature) getArguments().getParcelable("earthquakeItem");
 
-        this.place = earthquakeItem.getProperties().getPlace();
-        this.latitude = earthquakeItem.getGeometry().getCoordinates().get(1);
         this.longitude = earthquakeItem.getGeometry().getCoordinates().get(0);
+        this.latitude = earthquakeItem.getGeometry().getCoordinates().get(1);
+
+        this.place = earthquakeItem.getProperties().getPlace();
+        this.depth = utils.getFormattedDepth(earthquakeItem.getGeometry().getCoordinates().get(2));
+        this.time = utils.getFormattedDate(earthquakeItem.getProperties().getTime()).toString();
+        this.magnitude = utils.getFormattedMagnitude(earthquakeItem.getProperties().getMag());
 
         placeTextView = (TextView) view.findViewById(R.id.place);
-        mMapView = (MapView) view.findViewById(R.id.map_view_fragment);
+        depthTextView = (TextView) view.findViewById(R.id.depth);
+        timeTextView = (TextView) view.findViewById(R.id.time);
+        magnitudeTextView = (TextView) view.findViewById(R.id.magnitude);
 
         placeTextView.setText(place);
+        depthTextView.setText(depth);
+        timeTextView.setText(time);
+        magnitudeTextView.setText(magnitude);
 
+        mMapView = (MapView) view.findViewById(R.id.map_view_fragment);
         mMapView.onCreate(savedInstanceState);
         mMapView.getMapAsync(this);
     }
