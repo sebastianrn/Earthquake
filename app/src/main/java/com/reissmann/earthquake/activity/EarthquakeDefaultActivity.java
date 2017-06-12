@@ -12,6 +12,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,6 +73,14 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
     private void getDataAsync(GetEarthquakeDataASyncService async) throws InterruptedException, java.util.concurrent.ExecutionException {
         result = async.execute(this.getString(R.string.api_uri)).get();
 
+        Animation animation = new RotateAnimation(0.0f, 360.0f,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
+                0.5f);
+        animation.setRepeatCount(-1);
+        animation.setDuration(2000);
+
+        //((ImageView)findViewById(R.id.menu_refresh)).setAnimation(animation);
+
         Json2JavaMapperService earthquakeMapper = new Json2JavaMapperService(result);
         final EarthquakeDataObject earthquakeDataObject = earthquakeMapper.getEarthquakeDataObject();
         List<Feature> earthquakeList = earthquakeDataObject.getFeatures();
@@ -105,6 +116,7 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
             }
         }));
 
+        //((ImageView)findViewById(R.id.menu_refresh)).clearAnimation();
         Snackbar snackbar = Snackbar
                 .make(defaultActivityLayout, R.string.snackbar_refresh_complete, Snackbar.LENGTH_LONG);
         snackbar.show();
