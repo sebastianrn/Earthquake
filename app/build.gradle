@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 allprojects {
-    buildDir = $/C:\Users\sebas\Google Drive\Development\earthquake\builds/$
+    //buildDir = $/C:\Users\sebas\Google Drive\Development\earthquake\builds/$
     //buildDir = $/C:\Users\SE_RE\Google Drive\Development\earthquake\builds/$
     repositories {
 
@@ -13,8 +13,8 @@ android {
         config {
             keyAlias 'earthquake_key_alias'
             keyPassword 'einstein'
-            storeFile file('C:/Users/sebas/Google Drive/Development/earthquake/earthquake_keystore.jks')
-            //storeFile file('C:/Users/SE_RE/Google Drive/Development/earthquake/earthquake_keystore.jks')
+            //storeFile file('C:/Users/sebas/Google Drive/Development/earthquake/earthquake_keystore.jks')
+            storeFile file('C:/Users/SE_RE/Google Drive/Development/earthquake/earthquake_keystore.jks')
             storePassword 'einstein'
         }
     }
@@ -24,8 +24,8 @@ android {
         applicationId "com.reissmann.earthquake"
         minSdkVersion 21
         targetSdkVersion 25
-        versionCode 13
-        versionName "0.36.1"
+        versionCode 14
+        versionName "0.37"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
