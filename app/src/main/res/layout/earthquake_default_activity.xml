@@ -9,10 +9,20 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
+    <EditText
+        android:id="@+id/editText"
+        style="@android:style/Widget.Material.SearchView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:ems="10"
+        android:hint="Filter for Magnitude"
+        android:inputType="number" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvEarthquake"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"/>
+        android:layout_below="@+id/editText" />
 
 </RelativeLayout>

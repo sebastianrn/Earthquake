@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.reissmann.earthquake.model.Feature;
@@ -16,8 +18,10 @@ import java.util.List;
  * Created by se_re on 11.05.2017.
  */
 
-public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.ViewHolder> {
-    private List<Feature> earthquakeList;
+public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.ViewHolder> implements Filterable {
+    public List<Feature> earthquakeList;
+    private EarthquakeFilter earthquakeFilter;
+
     private Context context;
     private Utils utils = new Utils();
 
@@ -81,5 +85,13 @@ public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.Vi
     @Override
     public int getItemCount() {
         return earthquakeList.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+        if (earthquakeFilter == null) {
+            earthquakeFilter = new EarthquakeFilter(this, earthquakeList);
+        }
+        return earthquakeFilter;
     }
 }
