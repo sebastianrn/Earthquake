@@ -9,12 +9,21 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
+    <SeekBar
+        android:id="@+id/seekBarMagnitude"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:max="10"
+        android:progress="3"
+        android:layout_below="@+id/toolbar" />
+
     <EditText
         android:id="@+id/editText"
         style="@android:style/Widget.Material.SearchView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
+        android:layout_below="@+id/seekBarMagnitude"
         android:ems="10"
         android:hint="Filter for Magnitude"
         android:inputType="number" />

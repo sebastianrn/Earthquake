@@ -56,6 +56,7 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
 
         defaultActivityLayout = (RelativeLayout) findViewById(R.id.defaultActivityLayout);
 
+        //todo delete example code
         EditText editText = (EditText) findViewById(R.id.editText);
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -114,24 +115,10 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
     private List<Feature> getDataAsync(GetEarthquakeDataASyncService async) throws InterruptedException, java.util.concurrent.ExecutionException {
         result = async.execute(this.getString(R.string.api_uri)).get();
 
-        Animation animation = new RotateAnimation(0.0f, 360.0f,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
-                0.5f);
-        animation.setRepeatCount(-1);
-        animation.setDuration(2000);
-
-        //((ImageView)findViewById(R.id.menu_refresh)).setAnimation(animation);
-
         Json2JavaMapperService earthquakeMapper = new Json2JavaMapperService(result);
         EarthquakeDataObject earthquakeDataObject = earthquakeMapper.getEarthquakeDataObject();
-        List<Feature> earthquakeList = earthquakeDataObject.getFeatures();
 
-        //((ImageView)findViewById(R.id.menu_refresh)).clearAnimation();
-        Snackbar snackbar = Snackbar
-                .make(defaultActivityLayout, R.string.snackbar_refresh_complete, Snackbar.LENGTH_LONG);
-        snackbar.show();
-
-        return earthquakeList;
+        return earthquakeDataObject.getFeatures();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -159,7 +146,22 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
             case R.id.menu_refresh:
                 GetEarthquakeDataASyncService async = new GetEarthquakeDataASyncService();
                 try {
-                    getDataAsync(async);
+                    Animation animation = new RotateAnimation(0.0f, 360.0f,
+                            Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
+                            0.5f);
+                    animation.setRepeatCount(-1);
+                    animation.setDuration(2000);
+
+                    //((ImageView)findViewById(R.id.menu_refresh)).setAnimation(animation);
+
+                    mAdapter.earthquakeList.clear();
+                    mAdapter.earthquakeList.addAll(getDataAsync(async));
+                    mAdapter.notifyDataSetChanged();
+
+                    //((ImageView)findViewById(R.id.menu_refresh)).clearAnimation();
+                    Snackbar snackbar = Snackbar
+                            .make(defaultActivityLayout, R.string.snackbar_refresh_complete, Snackbar.LENGTH_LONG);
+                    snackbar.show();
                 } catch (Exception e) {
                     Log.println(Log.ERROR, "", e.toString());
                 }
