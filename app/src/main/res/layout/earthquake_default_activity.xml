@@ -9,29 +9,34 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
-    <SeekBar
-        android:id="@+id/seekBarMagnitude"
-        style="@style/Widget.AppCompat.SeekBar.Discrete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:max="10"
-        android:progress="3"
-        android:layout_below="@+id/toolbar" />
 
-    <EditText
-        android:id="@+id/editText"
-        style="@android:style/Widget.Material.SearchView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/seekBarMagnitude"
-        android:ems="10"
-        android:hint="Filter for Magnitude"
-        android:inputType="number" />
+    <TextView
+        android:id="@+id/textViewMagnitudeInfo"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/toolbar"
+        android:background="@color/colorBackgroundSeekbar"
+        android:gravity="fill_vertical"
+        android:hint="Shows the magnitude filter"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvEarthquake"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/editText" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/seekBarMagnitude" />
+
+    <SeekBar
+        android:id="@+id/seekBarMagnitude"
+        style="@style/Widget.AppCompat.SeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:elevation="2dp"
+        android:background="@color/colorBackgroundSeekbar"
+        android:max="10"
+        android:progress="0"
+        android:layout_below="@+id/textViewMagnitudeInfo"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

@@ -8,16 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +40,9 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private JSONObject result;
     private Toolbar mToolbar;
+    private SeekBar seekbarMagnitude;
     private RelativeLayout defaultActivityLayout;
+    private TextView textViewMagInfo;
 
     @Override
     public void onDestroy(){
@@ -55,10 +55,38 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
         setContentView(R.layout.earthquake_default_activity);
 
         defaultActivityLayout = (RelativeLayout) findViewById(R.id.defaultActivityLayout);
-
+        seekbarMagnitude = (SeekBar) findViewById(R.id.seekBarMagnitude);
         //todo delete example code
-        EditText editText = (EditText) findViewById(R.id.editText);
-        editText.addTextChangedListener(new TextWatcher() {
+        textViewMagInfo = (TextView) findViewById(R.id.textViewMagnitudeInfo);
+
+        //textViewMagInfo.setText("Currently filtered for Magnitude: " + seekbarMagnitude.getProgress());
+        seekbarMagnitude.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progress = 0;
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progresValue, boolean fromUser) {
+                progress = progresValue;
+                textViewMagInfo.setText("Currently filtered for Magnitude: " + seekbarMagnitude.getProgress());
+                mAdapter.getFilter().filter(String.valueOf(seekBar.getProgress()));
+
+                //Toast.makeText(getApplicationContext(), "Changing seekbar's progress", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                //Toast.makeText(getApplicationContext(), "Started tracking seekbar", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                textViewMagInfo.setText("Currently filtered for Magnitude: " + seekbarMagnitude.getProgress());
+                mAdapter.getFilter().filter(String.valueOf(seekBar.getProgress()));
+                //Toast.makeText(getApplicationContext(), "Stopped tracking seekbar", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        /*textViewMagInfo.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -73,7 +101,7 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
 
             }
-        });
+        });*/
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
