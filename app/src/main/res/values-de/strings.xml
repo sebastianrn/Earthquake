@@ -8,7 +8,7 @@
     <string name="snackbar_refresh_complete">Erdebebenliste aktualisiert</string>
 
     <string name="details_place">Ort</string>
-    <string name="details_magnitude">Magnitude</string>
+    <string name="details_magnitude">Stärke</string>
     <string name="details_time">Zeit</string>
     <string name="details_depth">Tiefe</string>
 </resources>

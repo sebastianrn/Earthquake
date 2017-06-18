@@ -1,84 +1,117 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackgroundWhite"
     android:orientation="vertical"
     android:weightSum="1">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/map_view_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:visibility="visible"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="0dp" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" >
 
-                        <com.google.android.gms.maps.MapView
-                            android:id="@+id/map_view_fragment"
-                            android:layout_width="match_parent"
-                            android:layout_height="480dp" />
+    <TextView
+        android:id="@+id/placeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/details_place"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+        android:layout_marginTop="6dp"
+        app:layout_constraintTop_toBottomOf="@+id/map_view_fragment"
+        app:layout_constraintStart_toStartOf="@+id/map_view_fragment"
+        android:layout_marginStart="16dp" />
 
-                        <TextView
-                            android:id="@+id/placeLabel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/map_view_fragment"
-                            android:text="@string/details_place" />
+    <TextView
+        android:id="@+id/place"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PLACE"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+        app:layout_constraintTop_toBottomOf="@+id/map_view_fragment"
+        app:layout_constraintStart_toEndOf="@+id/placeLabel"
+        android:layout_marginStart="69dp"
+        android:layout_marginTop="6dp" />
 
-                        <TextView
-                            android:id="@+id/place"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/map_view_fragment"
-                            android:layout_toRightOf="@+id/placeLabel"
-                            android:text="PLACE" />
+    <TextView
+        android:id="@+id/magnitudeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/place"
+        android:background="@color/colorBackgroundWhite"
+        android:text="@string/details_magnitude"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/placeLabel"
+        app:layout_constraintStart_toStartOf="@+id/placeLabel" />
 
-                        <TextView
-                            android:id="@+id/magnitudeLabel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/place"
-                            android:text="@string/details_magnitude" />
+    <TextView
+        android:id="@+id/magnitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/place"
+        android:layout_toRightOf="@+id/magnitudeLabel"
+        android:background="@color/colorBackgroundWhite"
+        android:text="MAG"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/place"
+        app:layout_constraintStart_toStartOf="@+id/place" />
 
-                        <TextView
-                            android:id="@+id/magnitude"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/place"
-                            android:layout_toRightOf="@+id/magnitudeLabel"
-                            android:text="MAG" />
+    <TextView
+        android:id="@+id/timeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/magnitude"
+        android:background="@color/colorBackgroundWhite"
+        android:text="@string/details_time"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/magnitudeLabel"
+        app:layout_constraintStart_toStartOf="@+id/magnitudeLabel" />
 
-                        <TextView
-                            android:id="@+id/timeLabel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/magnitude"
-                            android:text="@string/details_time" />
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/magnitude"
+        android:layout_toRightOf="@+id/timeLabel"
+        android:background="@color/colorBackgroundWhite"
+        android:text="TIME"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/magnitude"
+        app:layout_constraintStart_toStartOf="@+id/magnitude" />
 
-                        <TextView
-                            android:id="@+id/time"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/magnitude"
-                            android:layout_toRightOf="@+id/timeLabel"
-                            android:text="TIME" />
+    <TextView
+        android:id="@+id/depthLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/time"
+        android:text="@string/details_depth"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/timeLabel"
+        app:layout_constraintStart_toStartOf="@+id/timeLabel" />
 
-                        <TextView
-                            android:id="@+id/depthLabel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/time"
-                            android:text="@string/details_depth" />
+    <TextView
+        android:id="@+id/depth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/time"
+        android:layout_toRightOf="@+id/depthLabel"
+        android:background="@color/colorBackgroundWhite"
+        android:text="DEPTH"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/time"
+        app:layout_constraintStart_toStartOf="@+id/time" />
 
-                        <TextView
-                            android:id="@+id/depth"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/time"
-                            android:layout_toRightOf="@+id/depthLabel"
-                            android:text="DEPTH" />
+</android.support.constraint.ConstraintLayout>
 
-                </RelativeLayout>
-        </ScrollView>
 
-</LinearLayout>

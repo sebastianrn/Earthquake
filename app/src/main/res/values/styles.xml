@@ -28,4 +28,13 @@
         <item name="android:src">@drawable/ic_more_vert_white_24px</item>
     </style>
 
+    <style name="textViewsDetailView">
+        <item name="android:textAppearance">
+            @style/TextAppearance.AppCompat.Light.SearchResult.Subtitle
+        </item>
+        <item name="android:layout_height">@dimen/detail_textview_height</item>
+        <item name="android:elevation">4dp</item>
+        <item name="android:gravity">fill</item>
+    </style>
+
 </resources>
