@@ -7,11 +7,8 @@ import com.fasterxml.jackson.databind.*;
 
 import org.json.JSONObject;
 
-/**
- * Created by sebas on 20.05.2017.
- */
-
 public class Json2JavaMapperService {
+    private static final String MSG_TAG = "JsonMapper";
     private ObjectMapper mapper = new ObjectMapper();
     private JSONObject jsonObject;
 
@@ -25,7 +22,7 @@ public class Json2JavaMapperService {
         try{
             earthquakeDataObject = mapper.readValue(jsonObject.toString(), EarthquakeDataObject.class);
         } catch (Exception e) {
-            Log.println(Log.ERROR,"",e.toString());
+            Log.e(MSG_TAG,e.toString());
         }
         return earthquakeDataObject;
     }

@@ -14,10 +14,6 @@ import com.reissmann.earthquake.model.Feature;
 
 import java.util.List;
 
-/**
- * Created by se_re on 11.05.2017.
- */
-
 public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.ViewHolder> implements Filterable {
     public List<Feature> earthquakeList;
     private EarthquakeFilter earthquakeFilter;
@@ -28,14 +24,14 @@ public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.Vi
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public CardView itemCardView;
-        public TextView placeTextView;
-        public TextView magnitudeTextView;
-        public TextView dateTextView;
+        CardView itemCardView;
+        TextView placeTextView;
+        TextView magnitudeTextView;
+        TextView dateTextView;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             itemCardView = (CardView)itemView.findViewById(R.id.itemCardView);
             placeTextView = (TextView)itemView.findViewById(R.id.textViewPlace);

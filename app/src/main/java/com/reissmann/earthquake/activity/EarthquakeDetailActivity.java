@@ -11,9 +11,6 @@ import android.view.MenuItem;
 import com.reissmann.earthquake.R;
 import com.reissmann.earthquake.model.Feature;
 
-/**
- * Created by sebas on 27.05.2017.
- */
 
 public class EarthquakeDetailActivity extends AppCompatActivity {
 

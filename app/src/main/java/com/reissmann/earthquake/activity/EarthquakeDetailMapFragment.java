@@ -22,9 +22,6 @@ import com.reissmann.earthquake.model.Feature;
 
 import static android.content.ContentValues.TAG;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class EarthquakeDetailMapFragment extends Fragment implements OnMapReadyCallback {
 
     private TextView placeTextView;
@@ -58,6 +55,7 @@ public class EarthquakeDetailMapFragment extends Fragment implements OnMapReadyC
     private void setBundleValues(View view, Bundle savedInstanceState) {
         Feature earthquakeItem = (Feature) getArguments().getParcelable("earthquakeItem");
 
+        assert earthquakeItem != null;
         this.longitude = earthquakeItem.getGeometry().getCoordinates().get(0);
         this.latitude = earthquakeItem.getGeometry().getCoordinates().get(1);
 

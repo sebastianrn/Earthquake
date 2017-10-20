@@ -66,7 +66,7 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progresValue, boolean fromUser) {
                 progress = progresValue;
-                textViewMagInfo.setText("Currently filtered for Magnitude: " + seekbarMagnitude.getProgress());
+                textViewMagInfo.setText(getString(R.string.FilterMessage) + seekbarMagnitude.getProgress());
                 mAdapter.getFilter().filter(String.valueOf(seekBar.getProgress()));
 
                 //Toast.makeText(getApplicationContext(), "Changing seekbar's progress", Toast.LENGTH_SHORT).show();

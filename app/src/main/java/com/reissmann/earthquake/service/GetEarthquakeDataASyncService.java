@@ -14,9 +14,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-/**
- * Created by sebas on 15.04.2017.
- */
 
 public class GetEarthquakeDataASyncService extends AsyncTask <String, Void, JSONObject> {
 

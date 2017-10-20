@@ -7,9 +7,6 @@ import com.reissmann.earthquake.model.Feature;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by sebas on 16.06.2017.
- */
 
 public class EarthquakeFilter extends Filter {
 

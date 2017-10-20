@@ -11,4 +11,5 @@
     <string name="details_magnitude">Magnitude</string>
     <string name="details_time">Time</string>
     <string name="details_depth">Depth</string>
+    <string name="FilterMessage">Currently filtered for Magnitude:</string>
 </resources>
