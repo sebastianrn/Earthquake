@@ -50,19 +50,15 @@ public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.Vi
         return context;
     }
 
-    // Create new views (invoked by the layout manager)
     @Override
     public EarthquakeAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-
         View earthquakeView = inflater.inflate(R.layout.earthquake_default_item, parent,false);
 
-        ViewHolder vh = new ViewHolder(earthquakeView);
-        return vh;
+        return new ViewHolder(earthquakeView);
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Feature earthquake = earthquakeList.get(position);
@@ -77,7 +73,6 @@ public class EarthquakeAdapter extends RecyclerView.Adapter<EarthquakeAdapter.Vi
         textViewDate.setText(utils.getFormattedDate(earthquake.getProperties().getTime()).toString());
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
         return earthquakeList.size();

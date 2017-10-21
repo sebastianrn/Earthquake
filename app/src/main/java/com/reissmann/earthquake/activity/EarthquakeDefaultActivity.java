@@ -34,12 +34,7 @@ import java.util.List;
 
 public class EarthquakeDefaultActivity extends AppCompatActivity {
 
-    private TextView mTextMessage;
-    private RecyclerView mRecyclerView;
     private EarthquakeAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private JSONObject result;
-    private Toolbar mToolbar;
     private SeekBar seekbarMagnitude;
     private RelativeLayout defaultActivityLayout;
     private TextView textViewMagInfo;
@@ -66,7 +61,7 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progresValue, boolean fromUser) {
                 progress = progresValue;
-                textViewMagInfo.setText(getString(R.string.FilterMessage) + seekbarMagnitude.getProgress());
+                textViewMagInfo.setText(getString(R.string.magnitudefilterMessage, seekbarMagnitude.getProgress()));
                 mAdapter.getFilter().filter(String.valueOf(seekBar.getProgress()));
 
                 //Toast.makeText(getApplicationContext(), "Changing seekbar's progress", Toast.LENGTH_SHORT).show();
@@ -79,7 +74,7 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                textViewMagInfo.setText("Currently filtered for Magnitude: " + seekbarMagnitude.getProgress());
+                textViewMagInfo.setText(getString(R.string.magnitudefilterMessage, seekbarMagnitude.getProgress()));
                 mAdapter.getFilter().filter(String.valueOf(seekBar.getProgress()));
                 //Toast.makeText(getApplicationContext(), "Stopped tracking seekbar", Toast.LENGTH_SHORT).show();
             }
@@ -103,7 +98,7 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
             }
         });*/
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         //getSupportActionBar().setDisplayShowHomeEnabled(true);
         //getSupportActionBar().setHideOnContentScrollEnabled(true);
@@ -112,8 +107,8 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
         try{
             final List<Feature> earthquakeList = getDataAsync(async);
 
-            mRecyclerView = (RecyclerView) findViewById(R.id.rvEarthquake);
-            mLayoutManager = new LinearLayoutManager(this);
+            RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.rvEarthquake);
+            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
             mRecyclerView.setLayoutManager(mLayoutManager);
 
             mAdapter = new EarthquakeAdapter(this, earthquakeList);
@@ -141,7 +136,7 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
     }
 
     private List<Feature> getDataAsync(GetEarthquakeDataASyncService async) throws InterruptedException, java.util.concurrent.ExecutionException {
-        result = async.execute(this.getString(R.string.api_uri)).get();
+        JSONObject result = async.execute(this.getString(R.string.api_uri)).get();
 
         Json2JavaMapperService earthquakeMapper = new Json2JavaMapperService(result);
         EarthquakeDataObject earthquakeDataObject = earthquakeMapper.getEarthquakeDataObject();

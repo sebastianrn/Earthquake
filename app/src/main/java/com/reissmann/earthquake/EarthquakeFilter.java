@@ -1,5 +1,6 @@
 package com.reissmann.earthquake;
 
+import android.util.Log;
 import android.widget.Filter;
 
 import com.reissmann.earthquake.model.Feature;
@@ -10,12 +11,13 @@ import java.util.List;
 
 public class EarthquakeFilter extends Filter {
 
+    private static final String MSG_TAG = "ErrorMessage";
     private EarthquakeAdapter earthquakeAdapter;
     private List<Feature> earthquakeList = new ArrayList<>();
     private List<Feature> earthquakeListOriginal = new ArrayList<>();
     private List<Feature> filteredEarthquakeList = new ArrayList<>();
 
-    public EarthquakeFilter(EarthquakeAdapter earthquakeAdapter, List<Feature> earthquakeList) {
+    EarthquakeFilter(EarthquakeAdapter earthquakeAdapter, List<Feature> earthquakeList) {
         super();
         this.earthquakeAdapter = earthquakeAdapter;
         this.earthquakeList.addAll(earthquakeList);
@@ -33,8 +35,12 @@ public class EarthquakeFilter extends Filter {
             filteredEarthquakeList.addAll(earthquakeList);
         } else {
             for (Feature earthquake : earthquakeList) {
-                if (earthquake.getProperties().getMag() > Double.parseDouble(constraint.toString())) {
-                    filteredEarthquakeList.add(earthquake);
+                try {
+                    if (earthquake.getProperties().getMag() > Double.parseDouble(constraint.toString())) {
+                        filteredEarthquakeList.add(earthquake);
+                    }
+                } catch (Exception e) {
+                    Log.e(MSG_TAG, "Error while filtering following earthquake: " + earthquake + ", " + e);
                 }
             }
         }
