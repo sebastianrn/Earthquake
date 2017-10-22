@@ -11,7 +11,7 @@ import java.util.List;
 
 public class EarthquakeFilter extends Filter {
 
-    private static final String MSG_TAG = "ErrorMessage";
+    private static final String TAG = "Error_Earthquake";
     private EarthquakeAdapter earthquakeAdapter;
     private List<Feature> earthquakeList = new ArrayList<>();
     private List<Feature> earthquakeListOriginal = new ArrayList<>();
@@ -40,7 +40,7 @@ public class EarthquakeFilter extends Filter {
                         filteredEarthquakeList.add(earthquake);
                     }
                 } catch (Exception e) {
-                    Log.e(MSG_TAG, "Error while filtering following earthquake: " + earthquake + ", " + e);
+                    Log.e(TAG, "performFiltering: Error while filtering following earthquake", e);
                 }
             }
         }

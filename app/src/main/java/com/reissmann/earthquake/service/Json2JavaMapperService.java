@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.*;
 import org.json.JSONObject;
 
 public class Json2JavaMapperService {
-    private static final String MSG_TAG = "JsonMapper";
+    private static final String TAG = "Error_Earthquake";
     private ObjectMapper mapper = new ObjectMapper();
     private JSONObject jsonObject;
 
@@ -22,7 +22,7 @@ public class Json2JavaMapperService {
         try{
             earthquakeDataObject = mapper.readValue(jsonObject.toString(), EarthquakeDataObject.class);
         } catch (Exception e) {
-            Log.e(MSG_TAG,e.toString());
+            Log.e(TAG, "getEarthquakeDataObject: json object mapper", e);
         }
         return earthquakeDataObject;
     }

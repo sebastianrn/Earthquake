@@ -2,8 +2,10 @@ package com.reissmann.earthquake.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,13 +33,16 @@ import com.reissmann.earthquake.service.Json2JavaMapperService;
 import org.json.JSONObject;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
-public class EarthquakeDefaultActivity extends AppCompatActivity {
+public class EarthquakeDefaultActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
+    private static final String TAG = "Error_Earthquake";
     private EarthquakeAdapter mAdapter;
     private SeekBar seekbarMagnitude;
     private RelativeLayout defaultActivityLayout;
     private TextView textViewMagInfo;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public void onDestroy(){
@@ -51,10 +56,11 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
 
         defaultActivityLayout = (RelativeLayout) findViewById(R.id.defaultActivityLayout);
         seekbarMagnitude = (SeekBar) findViewById(R.id.seekBarMagnitude);
-        //todo delete example code
         textViewMagInfo = (TextView) findViewById(R.id.textViewMagnitudeInfo);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
 
-        //textViewMagInfo.setText("Currently filtered for Magnitude: " + seekbarMagnitude.getProgress());
+        swipeRefreshLayout.setOnRefreshListener(this);
+
         seekbarMagnitude.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progress = 0;
 
@@ -63,8 +69,6 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
                 progress = progresValue;
                 textViewMagInfo.setText(getString(R.string.magnitudefilterMessage, seekbarMagnitude.getProgress()));
                 mAdapter.getFilter().filter(String.valueOf(seekBar.getProgress()));
-
-                //Toast.makeText(getApplicationContext(), "Changing seekbar's progress", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -76,32 +80,11 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
                 textViewMagInfo.setText(getString(R.string.magnitudefilterMessage, seekbarMagnitude.getProgress()));
                 mAdapter.getFilter().filter(String.valueOf(seekBar.getProgress()));
-                //Toast.makeText(getApplicationContext(), "Stopped tracking seekbar", Toast.LENGTH_SHORT).show();
             }
         });
 
-
-        /*textViewMagInfo.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mAdapter.getFilter().filter(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });*/
-
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
-        //getSupportActionBar().setHideOnContentScrollEnabled(true);
 
         GetEarthquakeDataASyncService async = new GetEarthquakeDataASyncService();
         try{
@@ -118,7 +101,6 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
                     mRecyclerView, new ClickListenerInterface() {
                 @Override
                 public void onClick(View view, final int position) {
-                    //Values are passing to activity & to fragment as well
                     Intent item_intent = new Intent(EarthquakeDefaultActivity.this, EarthquakeDetailActivity.class);
                     item_intent.putExtra("EarthquakeItem", earthquakeList.get(position));
                     startActivity(item_intent);
@@ -145,15 +127,9 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate our menu from the resources by using the menu inflater.
         getMenuInflater().inflate(R.menu.navigation, menu);
-
-        // It is also possible add items here. Use a generated id from
-        // resources (ids.xml) to ensure that all menu ids are distinct.
         MenuItem menuRefresh = menu.add(0, R.id.menu_refresh, 0, R.string.menu_refresh);
         menuRefresh.setIcon(R.drawable.ic_refresh_white_24px);
-
-        // Need to use MenuItemCompat methods to call any action item related methods
         MenuItemCompat.setShowAsAction(menuRefresh, MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         return true;
@@ -163,9 +139,7 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_settings:
-                // User chose the "Settings" item, show the app settings UI...
                 return true;
-
             case R.id.menu_refresh:
                 GetEarthquakeDataASyncService async = new GetEarthquakeDataASyncService();
                 try {
@@ -175,13 +149,10 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
                     animation.setRepeatCount(-1);
                     animation.setDuration(2000);
 
-                    //((ImageView)findViewById(R.id.menu_refresh)).setAnimation(animation);
-
                     mAdapter.earthquakeList.clear();
                     mAdapter.earthquakeList.addAll(getDataAsync(async));
                     mAdapter.notifyDataSetChanged();
 
-                    //((ImageView)findViewById(R.id.menu_refresh)).clearAnimation();
                     Snackbar snackbar = Snackbar
                             .make(defaultActivityLayout, R.string.snackbar_refresh_complete, Snackbar.LENGTH_LONG);
                     snackbar.show();
@@ -194,7 +165,29 @@ public class EarthquakeDefaultActivity extends AppCompatActivity {
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
-
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        final GetEarthquakeDataASyncService async = new GetEarthquakeDataASyncService();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    mAdapter.earthquakeList.clear();
+                    mAdapter.earthquakeList.addAll(getDataAsync(async));
+                    mAdapter.notifyDataSetChanged();
+                    swipeRefreshLayout.setRefreshing(false);
+                } catch (InterruptedException | ExecutionException e) {
+                    Log.e(TAG, "onRefresh: Error during swipe to refresh", e);
+                }
+            }
+        }, 2000);
+
+        Snackbar snackbar = Snackbar
+                .make(defaultActivityLayout, R.string.snackbar_refresh_complete, Snackbar.LENGTH_LONG);
+        snackbar.show();
+
     }
 }

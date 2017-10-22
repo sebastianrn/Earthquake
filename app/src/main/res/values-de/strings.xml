@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="api_uri">https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson</string>
     <string name="app_name">Erdbeben</string>
 
@@ -11,4 +11,5 @@
     <string name="details_magnitude">Stärke</string>
     <string name="details_time">Zeit</string>
     <string name="details_depth">Tiefe</string>
+    <string name="magnitudefilterMessage">Gefilter nach Stärke: %1$d <xliff:g id="earthquake_magnitude" /> </string>
 </resources>
