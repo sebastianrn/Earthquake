@@ -113,7 +113,7 @@ public class EarthquakeDefaultActivity extends AppCompatActivity implements Swip
                 }
             }));
         } catch (Exception e) {
-            Log.println(Log.ERROR, "", e.toString());
+            Log.e(TAG, "onCreate: ", e);
         }
     }
 
