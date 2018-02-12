@@ -3,7 +3,7 @@ package com.reissmann.earthquake;
 import android.util.Log;
 import android.widget.Filter;
 
-import com.reissmann.earthquake.model.Feature;
+import com.reissmann.earthquake.rawDataModel.Feature;
 
 import java.util.ArrayList;
 import java.util.List;

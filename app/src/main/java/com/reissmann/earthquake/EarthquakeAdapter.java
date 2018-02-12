@@ -10,7 +10,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
-import com.reissmann.earthquake.model.Feature;
+import com.reissmann.earthquake.rawDataModel.Feature;
 
 import java.util.List;
 
