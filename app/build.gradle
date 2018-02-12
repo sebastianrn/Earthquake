@@ -4,7 +4,7 @@ allprojects {
     //buildDir = $/C:\Users\sebas\Google Drive\Development\earthquake\builds/$
     //buildDir = $/C:\Users\SE_RE\Google Drive\Development\earthquake\builds/$
     repositories {
-
+        google()
     }
 }
 
@@ -18,12 +18,12 @@ android {
             storePassword 'einstein'
         }
     }
-    compileSdkVersion 25
+    compileSdkVersion 27
     buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.reissmann.earthquake"
         minSdkVersion 21
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 21
         versionName "0.44"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -37,22 +37,55 @@ android {
     packagingOptions {
         exclude 'META-INF/LICENSE'
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '25.4.0'
+            }
+        }
+    }
+}
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.4.0'
-    compile 'com.android.support:cardview-v7:25.4.0'
-    compile 'com.android.support:design:25.4.0'
+    compile 'com.android.support:appcompat-v7'
+    compile 'com.android.support:cardview-v7'
+    compile 'com.android.support:design'
+    compile 'com.android.support:support-v4'
+    compile 'com.android.support:percent'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.google.android.gms:play-services-maps:11.8.0'
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.9.0.pr3'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.9.0.pr3'
+    compile 'org.mapstruct:mapstruct-jdk8:1.2.0.Final'
+    compile 'org.mapstruct:mapstruct-processor:1.2.0.Final'
+
     testCompile 'junit:junit:4.12'
-    compile 'com.google.android.gms:play-services-maps:11.4.2'
-    compile 'com.android.support:support-v4:25.4.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:percent:25.4.0'
+    // ViewModel and LiveData
+    implementation 'android.arch.lifecycle:extensions:1.1.0'
+    // alternatively, just ViewModel
+    implementation 'android.arch.lifecycle:viewmodel:1.1.0'
+    // alternatively, just LiveData
+    implementation 'android.arch.lifecycle:livedata:1.1.0'
+    annotationProcessor "android.arch.lifecycle:compiler:1.1.0"
+    // Room (use 1.1.0-alpha1 for latest alpha)
+    implementation 'android.arch.persistence.room:runtime:1.0.0'
+    annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
+    // Paging
+    implementation 'android.arch.paging:runtime:1.0.0-alpha5'
+    // Test helpers for LiveData
+    testImplementation 'android.arch.core:core-testing:1.1.0'
+    // Test helpers for Room
+    testImplementation 'android.arch.persistence.room:testing:1.0.0'
 }

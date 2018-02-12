@@ -1,10 +1,9 @@
 
-package com.reissmann.earthquake.model;
+package com.reissmann.earthquake.rawDataModel;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;

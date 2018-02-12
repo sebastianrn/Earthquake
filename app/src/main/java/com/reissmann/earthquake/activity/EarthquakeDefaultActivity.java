@@ -25,8 +25,8 @@ import com.reissmann.earthquake.ClickListenerInterface;
 import com.reissmann.earthquake.EarthquakeAdapter;
 import com.reissmann.earthquake.R;
 import com.reissmann.earthquake.RecyclerViewTouchListener;
-import com.reissmann.earthquake.model.EarthquakeDataObject;
-import com.reissmann.earthquake.model.Feature;
+import com.reissmann.earthquake.rawDataModel.EarthquakeDataObject;
+import com.reissmann.earthquake.rawDataModel.Feature;
 import com.reissmann.earthquake.service.GetEarthquakeDataASyncService;
 import com.reissmann.earthquake.service.Json2JavaMapperService;
 

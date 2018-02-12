@@ -18,7 +18,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.reissmann.earthquake.R;
 import com.reissmann.earthquake.Utils;
-import com.reissmann.earthquake.model.Feature;
+import com.reissmann.earthquake.rawDataModel.Feature;
 
 import static android.content.ContentValues.TAG;
 

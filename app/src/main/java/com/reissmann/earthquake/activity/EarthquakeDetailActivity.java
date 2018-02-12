@@ -9,7 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.reissmann.earthquake.R;
-import com.reissmann.earthquake.model.Feature;
+import com.reissmann.earthquake.rawDataModel.Feature;
 
 
 public class EarthquakeDetailActivity extends AppCompatActivity {
